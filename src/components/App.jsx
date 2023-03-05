@@ -1,16 +1,29 @@
-export const App = () => {
+import React from 'react';
+
+import { ContactForm } from './ContactForm/ContactForm';
+import { Filter } from './Filter/Filter';
+import { ContactList } from './ContactList/ContactList';
+import StyledContainer from './General.styled';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getContacts } from 'redux/operations';
+
+export function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getContacts());
+  }, [dispatch]);
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template text to test for deployment
-    </div>
+    <>
+      <StyledContainer>
+        <h1>Phonebook</h1>
+        <ContactForm />
+
+        <h2>Contacts</h2>
+        <Filter />
+        <ContactList />
+      </StyledContainer>
+    </>
   );
-};
+}
